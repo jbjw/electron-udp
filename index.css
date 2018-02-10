@@ -1,0 +1,24 @@
+html {
+	/* height: 100%; */
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	background-color: rgba(0,0,0,0);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+body:-moz-full-screen {
+	background-color: pink;
+}
+
+body:-webkit-full-screen {
+	background-color: pink;
+}
+
+body:fullscreen {
+	background-color: pink;
+}
