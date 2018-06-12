@@ -11,14 +11,17 @@ body {
 	align-items: center;
 }
 
-body:-moz-full-screen {
-	background-color: pink;
+.pane {
+	position: absolute;
 }
 
-body:-webkit-full-screen {
-	background-color: pink;
+.pane-bottom {
+	bottom: 0;
+	/* margin: auto 0; */
+	height: 80px;
+	width: 80%;
 }
 
-body:fullscreen {
-	background-color: pink;
+.test {
+	background-color: rgba( 0, 0, 255, 0.4 );
 }

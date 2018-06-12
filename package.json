@@ -1,18 +1,24 @@
 {
-  "name": "node-udp",
+  "name": "electron-udp",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "source/main.js",
   "scripts": {
-    "start": "node server.js",
+    "start-old": "node server.js",
+    "start-web": "http-server source -p 80 -c-1 -o --cors",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.7.11",
     "express": "^4.16.2",
     "three": "^0.89.0"
+  },
+  "devDependencies": {
+    "electron": "^2.0.2",
+    "http": "0.0.0",
+    "server": "^1.0.18"
   }
 }

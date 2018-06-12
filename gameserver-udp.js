@@ -68,8 +68,8 @@ function updatePhysics() {
 
 setInterval( updateNetwork, 100 )
 function updateNetwork() {
-	server.send( "update", 33333 )
-	server.send( "update", 33333 )
+	server.send( "update", PORT )
+	server.send( "update", PORT )
 }
 
 new Body()
