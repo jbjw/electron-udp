@@ -16,10 +16,18 @@ const players = []
 server.on( "listening", function () {
 	var address = server.address()
 	console.log( 'server up ' + address.address + ":" + address.port )
+	// server.setBroadcast(tr)
 } )
 
 server.on( "message", function ( message, remote ) {
-	console.log( remote.address + ':' + remote.port + ' - ' + message )
+	// server.address.address
+	// server.address.port
+	if ( message == "update" ) {
+
+	} else {
+		console.log( remote.address + ':' + remote.port + ' - ' + message )
+	}
+
 	const args = message.toString().split( " " )
 	const arg0 = args[ 0 ]
 	const arg1 = args[ 1 ]
@@ -45,16 +53,27 @@ server.on( "message", function ( message, remote ) {
 	}
 } )
 
+const scene = new THREE.Scene()
+
 function Player( args ) {
 	this.username = args.username
 	this.ip = args.ip
 	this.body = new Body()
 }
 
-function Body() {
-	this.position = new THREE.Vector3( 0, 0, 0 )
-	this.velocity = new THREE.Vector3( 0, 0, 0 )
+const bodies = []
 
+function Body() {
+	this.mesh = new THREE.Mesh(
+		new THREE.BoxGeometry( 10, 10, 10, 10 ),
+		new THREE.MeshBasicMaterial()
+	)
+	this.position = new THREE.Vector3( 0, 0, 0 )
+	this.mesh.position.copy( this.position )
+
+	this.velocity = new THREE.Vector3( 0, 0, 0 )
+	scene.add( this.mesh )
+	bodies.push( this )
 }
 
 Body.prototype.updatePhysics = function () {
@@ -63,12 +82,13 @@ Body.prototype.updatePhysics = function () {
 
 setInterval( updatePhysics, 10 )
 function updatePhysics() {
-
+	for ( const body of bodies ) {
+		body.updatePhysics()
+	}
 }
 
 setInterval( updateNetwork, 100 )
 function updateNetwork() {
-	server.send( "update", PORT )
 	server.send( "update", PORT )
 }
 
@@ -76,7 +96,7 @@ new Body()
 
 function addPlayer( username, ip ) {
 	players.push( new Player( {
-		ip: remote.address,
+		ip: ip,
 		username: "test",
 	} ) )
 }

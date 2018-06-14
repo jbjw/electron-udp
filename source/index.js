@@ -2,6 +2,9 @@
 
 "use strict"
 
+const qs = document.querySelector.bind( document )
+const log = console.log
+
 const PI = Math.PI
 
 const UP = new THREE.Vector3( 0, 1, 0 )
@@ -78,19 +81,13 @@ camera.up.set( 0, 0, 1 )
 
 const controls = new THREE.OrbitControls( camera )
 
-function Paddle( args ) {
-	this.size = new THREE.Vector3( 1, 4, 1 )
-	this.mesh = new THREE.Mesh(
-		new THREE.BoxGeometry( this.size.x, this.size.y, this.size.z ),
-		new THREE.MeshLambertMaterial( {
-			color: utils.randomColor(),
-			// wireframe: true
-		} ),
-	)
-	this.mesh.position.x = bounds.left + 5
-	this.mesh.position.y = 0.5
-	scene.add( this.mesh )
-	this.position = this.mesh.position
+function sendUDP( message ) {
+	function callback( err, bytes ) {
+		if (err) throw err
+		console.log( 'UDP message sent to ' + HOST + ':' + PORT )
+	}
+	client.send( message, PORT, HOST, callback )
+	// client.send( message, 0, message.length, PORT, HOST, callback )
 }
 
 var PORT = 33333
@@ -100,6 +97,23 @@ var dgram = require( "dgram" )
 var message = new Buffer( "My KungFu is Good!" )
 
 var client = dgram.createSocket( "udp4" )
+
+client.on( "close", function ( x, y ) {
+	log( "close", x )
+} )
+
+client.on( "error", function ( x, y ) {
+	log( "error", x )
+} )
+
+client.on( "listening", function () {
+	log( "listening" )
+} )
+
+client.on( "message", function ( x, y ) {
+	log( "message", x )
+} )
+
 sendUDP( `j ${ "test" }` )
 
 const entities = []
@@ -166,19 +180,13 @@ var colorGrid = new THREE.Color( "rgba(0, 255, 255)" )
 // scene.add( gridHelper )
 // gridHelper.rotation.x = Math.PI*0.5
 
+
 // physics loop
 setInterval( updatePhysics, 10 )
 function updatePhysics() {
 	for ( let entity of entities ) {
 		entity.updatePhysics()
 	}
-}
-
-function sendUDP( message ) {
-	client.send( message, 0, message.length, PORT, HOST, function( err, bytes ) {
-		if (err) throw err
-		console.log( 'UDP message sent to ' + HOST + ':' + PORT )
-	} )
 }
 
 // controls loop
