@@ -31,7 +31,7 @@ server.on( "listening", function () {
 
 
 
-server.bind( HOST_PORT, HOST_ADDRESS, function () {
+server.bind( HOST_PORT, function () {
 	// server.addMembership( multicastAddress )
 	// server.setBroadcast( true )
 	// server.setMulticastTTL( 128 )
