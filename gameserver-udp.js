@@ -5,7 +5,8 @@
 // const
 const THREE = require( "three" )
 
-var PORT = 4000
+var SRC_PORT = 4000
+var PORT = 4001
 var HOST = "159.203.241.253"
 var multicastAddress = "230.185.192.108" // "239.1.2.3"
 
@@ -116,7 +117,7 @@ function removePlayer( username, ip ) {
 	players.splice( i, 1 )
 }
 
-server.bind( PORT, function () {
+server.bind( SRC_PORT, HOST, function () {
 	server.addMembership( multicastAddress )
 	server.setBroadcast( true )
 	server.setMulticastTTL( 128 )

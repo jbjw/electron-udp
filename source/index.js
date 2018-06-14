@@ -117,7 +117,7 @@ client.on( "listening", function () {
 	client.setMulticastTTL( 128 )
 
 	setInterval( function () {
-		log( "send to ", HOST_PORT, PORT_ADDRESS )
+		log( "send to ", HOST_PORT, HOST_ADDRESS )
 		client.send( "update from client", HOST_PORT, HOST_ADDRESS )
 	}, 1000 )
 } )
