@@ -92,29 +92,41 @@ function sendUDP( message ) {
 
 var PORT = 33333
 var HOST = "127.0.0.1"
+const multicastAddress = "239.1.2.3"
 
 var dgram = require( "dgram" )
-var message = new Buffer( "My KungFu is Good!" )
+
+// dgram.createSocket({ type: 'udp4', reuseAddr: true })
 
 var client = dgram.createSocket( "udp4" )
 
 client.on( "close", function ( x, y ) {
-	log( "close", x )
+	log( "close", x, y )
 } )
 
 client.on( "error", function ( x, y ) {
-	log( "error", x )
+	log( "error", x, y )
 } )
 
 client.on( "listening", function () {
 	log( "listening" )
+
+	client.addMembership( multicastAddress )
+	client.setBroadcast( true )
+	client.setMulticastTTL( 128 )
+
+	setInterval( 1000, function () {
+		client.send( message, PORT, HOST )
+		// sendUDP( "update from client" )
+	} )
 } )
 
 client.on( "message", function ( x, y ) {
-	log( "message", x )
+	log( "message", x.toString(), y )
 } )
 
-sendUDP( `j ${ "test" }` )
+client.bind( PORT )
+// client.bind( PORT, HOST )
 
 const entities = []
 

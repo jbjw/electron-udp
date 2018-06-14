@@ -5,20 +5,29 @@
 // const
 const THREE = require( "three" )
 
-var PORT = 33333
-var HOST = "127.0.0.1"
+var PORT = 33334
+var HOST = "127.0.0.31"
 var multicastAddress = "239.1.2.3"
 
 var dgram = require( "dgram" )
 var server = dgram.createSocket( "udp4" )
-server.addMembership( multicastAddress )
 
 const players = []
+
+server.on( "close", function () {
+	console.log( "close" )
+} )
+
+server.on( "error", function ( error ) {
+	console.log( "error", error )
+} )
 
 server.on( "listening", function () {
 	var address = server.address()
 	console.log( 'server up ' + address.address + ":" + address.port )
-	// server.setBroadcast(tr)
+	server.addMembership( multicastAddress )
+	server.setBroadcast( true )
+	server.setMulticastTTL( 128 )
 } )
 
 server.on( "message", function ( message, remote ) {
@@ -91,7 +100,7 @@ function updatePhysics() {
 
 setInterval( updateNetwork, 100 )
 function updateNetwork() {
-	server.send( "update", PORT )
+	server.send( "update from server", PORT, multicastAddress )
 }
 
 new Body()
@@ -110,4 +119,5 @@ function removePlayer( username, ip ) {
 	players.splice( i, 1 )
 }
 
-server.bind( PORT, HOST )
+server.bind( PORT )
+// server.bind( PORT, HOST )
