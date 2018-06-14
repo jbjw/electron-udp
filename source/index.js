@@ -112,9 +112,7 @@ client.on( "error", function ( error ) {
 client.on( "listening", function () {
 	log( "listening", client.address().address, client.address().port )
 
-	client.addMembership( MULTICAST_ADDRESS, LOCAL_ADDRESS )
-	client.setBroadcast( true )
-	client.setMulticastTTL( 128 )
+
 
 	setInterval( function () {
 		log( "send to ", HOST_PORT, HOST_ADDRESS )
@@ -127,7 +125,11 @@ client.on( "message", function ( message, remote ) {
 } )
 
 // client.bind( PORT, multicastAddress )
-client.bind( LOCAL_PORT )
+client.bind( LOCAL_PORT, function() {
+	client.addMembership( MULTICAST_ADDRESS, LOCAL_ADDRESS )
+	client.setBroadcast( true )
+	client.setMulticastTTL( 128 )
+} )
 // client.bind( PORT )
 
 const entities = []
