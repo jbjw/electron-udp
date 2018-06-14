@@ -98,7 +98,7 @@ function updatePhysics() {
 	}
 }
 
-setInterval( updateNetwork, 100 )
+setInterval( updateNetwork, 1000 )
 function updateNetwork() {
 	server.send( "update from server", PORT, multicastAddress )
 }
