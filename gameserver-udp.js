@@ -5,8 +5,8 @@
 // const
 const THREE = require( "three" )
 
-var PORT = 33334
-var HOST = "127.0.0.31"
+var PORT = 4000
+var HOST = "159.203.241.253"
 var multicastAddress = "239.1.2.3"
 
 var dgram = require( "dgram" )

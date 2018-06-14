@@ -90,7 +90,7 @@ function sendUDP( message ) {
 	// client.send( message, 0, message.length, PORT, HOST, callback )
 }
 
-var PORT = 33334
+var PORT = 4000
 var HOST = "159.203.241.253"
 const multicastAddress = "239.1.2.3"
 
@@ -124,9 +124,9 @@ client.on( "message", function ( message, remote ) {
 	log( "message", message.toString(), remote.address, remote.port )
 } )
 
-client.bind( PORT, multicastAddress )
+// client.bind( PORT, multicastAddress )
 // client.bind( PORT, HOST )
-// client.bind()
+client.bind()
 
 const entities = []
 
