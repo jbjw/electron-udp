@@ -90,9 +90,11 @@ function sendUDP( message ) {
 	// client.send( message, 0, message.length, PORT, HOST, callback )
 }
 
-var PORT = 4001
-var HOST = "159.203.241.253"
-const multicastAddress = "230.185.192.108" // "239.1.2.3"
+const LOCAL_PORT = 4001
+var HOST_PORT = 4000
+const LOCAL_ADDRESS = "192.168.0.23"
+var HOST_ADDRESS = "159.203.241.253"
+const MULTICAST_ADDRESS = "230.185.192.108" // "239.1.2.3"
 
 var dgram = require( "dgram" )
 
@@ -110,13 +112,13 @@ client.on( "error", function ( error ) {
 client.on( "listening", function () {
 	log( "listening", client.address().address, client.address().port )
 
-	client.addMembership( multicastAddress )
+	client.addMembership( MULTICAST_ADDRESS, LOCAL_ADDRESS )
 	client.setBroadcast( true )
 	client.setMulticastTTL( 128 )
 
 	setInterval( function () {
-		log( "send to ", HOST, PORT )
-		client.send( "update from client", PORT, HOST )
+		log( "send to ", HOST_PORT, PORT_ADDRESS )
+		client.send( "update from client", HOST_PORT, HOST_ADDRESS )
 	}, 1000 )
 } )
 
@@ -125,8 +127,8 @@ client.on( "message", function ( message, remote ) {
 } )
 
 // client.bind( PORT, multicastAddress )
-client.bind( PORT, HOST )
-// client.bind()
+client.bind( LOCAL_PORT )
+// client.bind( PORT )
 
 const entities = []
 
