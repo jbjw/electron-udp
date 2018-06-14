@@ -24,10 +24,7 @@ server.on( "error", function ( error ) {
 
 server.on( "listening", function () {
 	var address = server.address()
-	console.log( 'server up ' + address.address + ":" + address.port )
-	server.addMembership( multicastAddress )
-	server.setBroadcast( true )
-	server.setMulticastTTL( 128 )
+	console.log( 'listening ' + address.address + ":" + address.port )
 } )
 
 server.on( "message", function ( message, remote ) {
@@ -119,5 +116,9 @@ function removePlayer( username, ip ) {
 	players.splice( i, 1 )
 }
 
-server.bind( PORT )
+server.bind( PORT, function () {
+	server.addMembership( multicastAddress )
+	server.setBroadcast( true )
+	server.setMulticastTTL( 128 )
+} )
 // server.bind( PORT, HOST )

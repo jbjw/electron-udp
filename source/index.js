@@ -125,8 +125,8 @@ client.on( "message", function ( message, remote ) {
 } )
 
 // client.bind( PORT, multicastAddress )
-// client.bind( PORT, HOST )
-client.bind()
+client.bind( PORT, HOST )
+// client.bind()
 
 const entities = []
 
