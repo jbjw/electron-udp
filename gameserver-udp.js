@@ -7,9 +7,11 @@ const THREE = require( "three" )
 
 var PORT = 33333
 var HOST = "127.0.0.1"
+var multicastAddress = "239.1.2.3"
 
 var dgram = require( "dgram" )
 var server = dgram.createSocket( "udp4" )
+server.addMembership( multicastAddress )
 
 const players = []
 
