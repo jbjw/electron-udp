@@ -4,7 +4,7 @@
 
 const HOST_PORT = 4000
 const DEST_PORT = 4001
-const HOST_ADDRESS = "159.203.241.253"
+const HOST_ADDRESS = "192.168.0.23" // "159.203.241.253"
 const DEST_ADDRESS = ""
 const MULTICAST_ADDRESS = "224.0.0.114" // "230.185.192.108" // "239.1.2.3"
 
@@ -25,14 +25,18 @@ server.on( "listening", function () {
 	console.log( 'listening ' + address.address + ":" + address.port )
 } )
 
-server.on( "message", function ( message, remote ) {
-	console.log( remote.address + ':' + remote.port + ' - ' + message )
-}
+// server.on( "message", function ( message, remote ) {
+// 	console.log( remote.address + ':' + remote.port + ' - ' + message )
+// }
 
-server.send( "update from server", PORT, multicastAddress )
 
-server.bind( SRC_PORT, HOST, function () {
-	server.addMembership( multicastAddress )
-	server.setBroadcast( true )
-	server.setMulticastTTL( 128 )
+
+server.bind( HOST_PORT, HOST_ADDRESS, function () {
+	// server.addMembership( multicastAddress )
+	// server.setBroadcast( true )
+	// server.setMulticastTTL( 128 )
+	setInterval( function () {
+		server.send( "update from server", DEST_PORT, MULTICAST_ADDRESS )
+	}, 1000 )
+
 } )
