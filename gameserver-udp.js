@@ -7,7 +7,7 @@ const THREE = require( "three" )
 
 var PORT = 4000
 var HOST = "159.203.241.253"
-var multicastAddress = "239.1.2.3"
+var multicastAddress = "230.185.192.108" // "239.1.2.3"
 
 var dgram = require( "dgram" )
 var server = dgram.createSocket( "udp4" )
@@ -121,4 +121,3 @@ server.bind( PORT, function () {
 	server.setBroadcast( true )
 	server.setMulticastTTL( 128 )
 } )
-// server.bind( PORT, HOST )

@@ -90,9 +90,9 @@ function sendUDP( message ) {
 	// client.send( message, 0, message.length, PORT, HOST, callback )
 }
 
-var PORT = 4000
+var PORT = 4001
 var HOST = "159.203.241.253"
-const multicastAddress = "239.1.2.3"
+const multicastAddress = "230.185.192.108" // "239.1.2.3"
 
 var dgram = require( "dgram" )
 
