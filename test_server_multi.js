@@ -2,10 +2,11 @@
 
 "use strict"
 
-const SRC_PORT = 4000
+const HOST_PORT = 4000
 const DEST_PORT = 4001
-const SRC_ADDRESS = "159.203.241.253" // "192.168.0.23"
-// const DEST_ADDRESS = ""
+const HOST_ADDRESS = "192.168.0.23" // "159.203.241.253"
+const DEST_ADDRESS = ""
+const MULTICAST_ADDRESS = "224.0.0.114" // "230.185.192.108" // "239.1.2.3"
 
 const dgram = require( "dgram" )
 
