@@ -29,8 +29,6 @@ server.on( "listening", function () {
 // 	console.log( remote.address + ':' + remote.port + ' - ' + message )
 // }
 
-
-
 server.bind( HOST_PORT, function () {
 	// server.addMembership( multicastAddress )
 	// server.setBroadcast( true )
