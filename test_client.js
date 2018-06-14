@@ -3,15 +3,14 @@
 "use strict"
 
 const LOCAL_PORT = 4001
-var HOST_PORT = 4000
+const HOST_PORT = 4000
 const LOCAL_ADDRESS = "192.168.0.23"
-var HOST_ADDRESS = "159.203.241.253"
-const MULTICAST_ADDRESS = "230.185.192.108" // "239.1.2.3"
+const HOST_ADDRESS = "159.203.241.253"
+const MULTICAST_ADDRESS = "224.0.0.114" // "230.185.192.108" // "239.1.2.3"
 
-var dgram = require( "dgram" )
+const dgram = require( "dgram" )
 
-// dgram.createSocket({ type: 'udp4', reuseAddr: true })
-var client = dgram.createSocket( "udp4" )
+const client = dgram.createSocket( "udp4" )
 
 client.on( "close", function () {
 	log( "close" )
@@ -22,10 +21,8 @@ client.on( "error", function ( error ) {
 } )
 
 client.on( "listening", function () {
-	log( "listening", client.address().address, client.address().port )
-
-
-
+	const address = client.address()
+	log( "listening", address.address, address.port )
 	setInterval( function () {
 		log( "send to ", HOST_PORT, HOST_ADDRESS )
 		client.send( "update from client", HOST_PORT, HOST_ADDRESS )
